@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz zur Langzeit-Sauerstofftherapie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #quiz-container {
+            display: none;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Langzeit-Sauerstofftherapie Quiz</h1>
+    <div id="nickname-container">
+        <label for="nickname">Gib deinen Nicknamen ein:</label>
+        <input type="text" id="nickname" required>
+        <button onclick="startQuiz()">Starten</button>
+    </div>
+
+    <div id="quiz-container">
+        <div class="question">
+            <p>Warum ist es laut den aktuellen Leitlinien nicht erforderlich, Sauerstoff routinemäßig zu befeuchten?</p>
+            <label><input type="radio" name="q1" value="A"> A) Weil es keine signifikanten Verbesserungen der Schleimhautfeuchtigkeit oder -konsistenz gibt.</label><br>
+            <label><input type="radio" name="q1" value="B"> B) Weil die Befeuchtung zu höheren Kosten führt.</label><br>
+            <label><input type="radio" name="q1" value="C"> C) Weil befeuchteter Sauerstoff gefährlich sein kann.</label><br>
+            <label><input type="radio" name="q1" value="D"> D) Weil die Geräte den Sauerstoff bereits ausreichend befeuchten.</label>
+        </div>
+
+        <div class="question">
+            <p>In welcher Situation ist die Befeuchtung des Sauerstoffs für Patienten wirklich notwendig?</p>
+            <label><input type="radio" name="q2" value="A"> A) Bei allen Patienten mit Low-Flow-Sauerstofftherapie.</label><br>
+            <label><input type="radio" name="q2" value="B"> B) Bei Patienten, die durch einen Tracheostoma beatmet werden.</label><br>
+            <label><input type="radio" name="q2" value="C"> C) Immer, wenn die Sauerstoffflussrate unter 2 Liter/Minute liegt.</label><br>
+            <label><input type="radio" name="q2" value="D"> D) Bei Patienten ohne Beschwerden der oberen Atemwege.</label>
+        </div>
+
+        <div class="question">
+            <p>Welche Probleme können bei einer unzureichenden Befeuchtung des Sauerstoffs auftreten?</p>
+            <label><input type="radio" name="q3" value="A"> A) Reizungen der Nasenschleimhaut, Entzündungen und Blutungen.</label><br>
+            <label><input type="radio" name="q3" value="B"> B) Erhöhte Infektionsgefahr durch Keime im Sauerstoff.</label><br>
+            <label><input type="radio" name="q3" value="C"> C) Erhöhte Gefahr einer Hyperkapnie.</label><br>
+            <label><input type="radio" name="q3" value="D"> D) Keine, es gibt keine nachgewiesenen negativen Effekte.</label>
+        </div>
+
+        <div class="question">
+            <p>Welche Maßnahme sollte ergriffen werden, wenn sich Flüssigkeit im Schlauchsystem des Sauerstoffgeräts sammelt?</p>
+            <label><input type="radio" name="q4" value="A"> A) Die Befeuchtungseinheit näher am Patienten positionieren.</label><br>
+            <label><input type="radio" name="q4" value="B"> B) Die Flussrate erhöhen, um die Flüssigkeit zu entfernen.</label><br>
+            <label><input type="radio" name="q4" value="C"> C) Die Befeuchtung komplett abschalten.</label><br>
+            <label><input type="radio" name="q4" value="D"> D) Das Schlauchsystem komplett austauschen.</label>
+        </div>
+
+        <div class="question">
+            <p>Welche Applikationsform für Sauerstoff wird am häufigsten verwendet und von den Patienten bevorzugt?</p>
+            <label><input type="radio" name="q5" value="A"> A) Nasenbrille ohne routinemäßige Befeuchtung.</label><br>
+            <label><input type="radio" name="q5" value="B"> B) Gesichtsmaske mit hoher Flussrate.</label><br>
+            <label><input type="radio" name="q5" value="C"> C) Venturi-Maske mit konstantem Fluss.</label><br>
+            <label><input type="radio" name="q5" value="D"> D) Nasenbrille mit kontinuierlicher Befeuchtung.</label>
+        </div>
+
+        <button onclick="evaluateQuiz()">Quiz auswerten</button>
+    </div>
+
+    <div id="result" style="display: none;">
+        <h2>Ergebnis</h2>
+        <p id="score"></p>
+        <p id="ranking"></p>
+        <a href="https://www.example.com/leitinie-langzeit-sauerstofftherapie" target="_blank">Zur Leitlinie zur Langzeit-Sauerstofftherapie</a>
+    </div>
+
+    <script>
+        function startQuiz() {
+            const nickname = document.getElementById('nickname').value;
+            if (nickname.trim() === "") {
+                alert("Bitte gib einen Nicknamen ein.");
+                return;
+            }
+            document.getElementById('nickname-container').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+        }
+
+        function evaluateQuiz() {
+            let score = 0;
+            if (document.querySelector('input[name="q1"]:checked')?.value === "A") score++;
+            if (document.querySelector('input[name="q2"]:checked')?.value === "B") score++;
+            if (document.querySelector('input[name="q3"]:checked')?.value === "A") score++;
+            if (document.querySelector('input[name="q4"]:checked')?.value === "D") score++;
+            if (document.querySelector('input[name="q5"]:checked')?.value === "A") score++;
+
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+
+            document.getElementById('score').textContent = "Du hast " + score + " von 5 Punkten erreicht.";
+            document.getElementById('ranking').textContent = score === 5 ? "Rang: Exzellent!" : "Rang: Nicht schlecht!";
+        }
+    </script>
+</body>
+</html>
