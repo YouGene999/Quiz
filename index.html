@@ -63,6 +63,46 @@
             40% { transform: translateY(-10px); }
             60% { transform: translateY(-5px); }
         }
+        #o2-symbol {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #ff8800;
+            animation: pulse 1.5s infinite, shake 0.5s infinite alternate;
+            cursor: pointer;
+            display: none; /* Standardmäßig ausgeblendet */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-3px); }
+            100% { transform: translateX(3px); }
+        }
+        #popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+        }
+        #popup .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -88,6 +128,12 @@
         <h2>Ergebnis</h2>
         <div id="stars"></div>
         <a href="https://register.awmf.org/assets/guidelines/020-002l_S2k_Langzeit_Sauerstofftherapie_2020-08.pdf" target="_blank">Zur Leitlinie zur Langzeit-Sauerstofftherapie</a>
+    </div>
+
+    <div id="o2-symbol" onclick="showPopup()">O₂</div>
+    <div id="popup">
+        <span class="close-btn" onclick="closePopup()">✖</span>
+        <p>Wusstest du, dass in der Atemluft nur 21% Sauerstoff sind? Stickstoff 78%. 1% sind weitere Bestandteile.</p>
     </div>
 
     <script>
@@ -171,6 +217,7 @@
                 answersContainer.appendChild(answerElement);
             });
             updateProgressBar();
+            showO2Symbol();
         }
 
         function selectAnswer(index) {
@@ -213,6 +260,23 @@
                 star.textContent = '★';
                 starsContainer.appendChild(star);
             }
+        }
+
+        function showO2Symbol() {
+            const o2Symbol = document.getElementById('o2-symbol');
+            if (currentQuestion === 2) { // Index 2 entspricht Frage 3
+                o2Symbol.style.display = 'block';
+            } else {
+                o2Symbol.style.display = 'none';
+            }
+        }
+
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
         }
     </script>
 </body>
