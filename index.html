@@ -71,7 +71,7 @@
             color: #ff8800;
             animation: pulse 1.5s infinite, shake 0.5s infinite alternate;
             cursor: pointer;
-            display: none; /* Standardmäßig ausgeblendet */
+            display: none;
         }
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -127,6 +127,7 @@
     <div id="result">
         <h2>Ergebnis</h2>
         <div id="stars"></div>
+        <p id="feedback-message"></p>
         <a href="https://register.awmf.org/assets/guidelines/020-002l_S2k_Langzeit_Sauerstofftherapie_2020-08.pdf" target="_blank">Zur Leitlinie zur Langzeit-Sauerstofftherapie</a>
     </div>
 
@@ -259,6 +260,14 @@
                 star.classList.add('star');
                 star.textContent = '★';
                 starsContainer.appendChild(star);
+            }
+            const feedback = document.getElementById('feedback-message');
+            if (score === 5) {
+                feedback.textContent = "Klasse gemacht! Dein Wissen ist brandaktuell.";
+            } else if (score === 4) {
+                feedback.textContent = "Nicht schlecht, aber ein paar Lücken.";
+            } else {
+                feedback.textContent = "Da geht noch mehr. Du solltest dich weiter informieren.";
             }
         }
 
