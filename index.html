@@ -50,6 +50,10 @@
             background-color: #ff8800;
             transition: width 0.3s;
         }
+        #progress-text {
+            margin-top: 10px;
+            font-size: 14px;
+        }
         #stars {
             font-size: 30px;
             margin-bottom: 20px;
@@ -70,7 +74,7 @@
             font-size: 30px;
             animation: eggPulse 1.5s infinite, eggBounce 0.5s infinite alternate;
             cursor: pointer;
-            display: none; /* Standardmäßig ausgeblendet */
+            display: none;
         }
         @keyframes eggPulse {
             0% { transform: scale(1); }
@@ -117,6 +121,7 @@
         <label for="nickname">Gib deinen Nicknamen ein:</label>
         <input type="text" id="nickname" required>
         <button onclick="startQuiz()">Starten</button>
+        <button onclick="startAnonymously()">Anonym starten</button>
     </div>
 
     <div id="quiz-container">
@@ -128,6 +133,7 @@
         <div id="progress">
             <div id="progress-bar"></div>
         </div>
+        <div id="progress-text"></div>
     </div>
 
     <div id="result">
@@ -211,6 +217,12 @@
             showQuestion();
         }
 
+        function startAnonymously() {
+            document.getElementById('nickname-container').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            showQuestion();
+        }
+
         function showQuestion() {
             const question = questions[currentQuestion];
             document.getElementById('question-text').textContent = question.text;
@@ -254,6 +266,8 @@
         function updateProgressBar() {
             const progressBar = document.getElementById('progress-bar');
             progressBar.style.width = ((currentQuestion + 1) / questions.length) * 100 + '%';
+            const progressText = document.getElementById('progress-text');
+            progressText.textContent = `${currentQuestion + 1} von ${questions.length}`;
         }
 
         function showResult() {
