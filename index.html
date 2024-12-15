@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -86,33 +87,6 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0); }
         }
-        #gif-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            border-radius: 10px;
-            display: none;
-            z-index: 1000;
-        }
-        #gif-popup img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-        #gif-popup .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
@@ -143,11 +117,7 @@
         <a href="https://register.awmf.org/assets/guidelines/020-002l_S2k_Langzeit_Sauerstofftherapie_2020-08.pdf" target="_blank">Zur Leitlinie zur Langzeit-Sauerstofftherapie</a>
     </div>
 
-    <div id="egg" onclick="showGif()">🥚</div>
-    <div id="gif-popup">
-        <span class="close-btn" onclick="closeGif()">✖</span>
-        <img src="https://media.giphy.com/media/9MJ5ozdayMWT7QuA19/giphy.gif" alt="Easter Egg GIF">
-    </div>
+    <div id="egg" onclick="showLink()">🥚</div>
 
     <script>
         const questions = [
@@ -300,12 +270,8 @@
             }
         }
 
-        function showGif() {
-            document.getElementById('gif-popup').style.display = 'block';
-        }
-
-        function closeGif() {
-            document.getElementById('gif-popup').style.display = 'none';
+        function showLink() {
+            window.open("https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs10405-021-00417-x/MediaObjects/10405_2021_417_Fig2_HTML.png?as=webp", "_blank");
         }
     </script>
 </body>
