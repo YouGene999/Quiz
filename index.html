@@ -87,35 +87,51 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0); }
         }
-        #popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-            display: none;
-            z-index: 1000;
-            text-align: left;
-        }
-        #popup .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
     </style>
+<style>
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    display: none;
+    z-index: 1000;
+    text-align: left;
+}
+#popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+</style>
 </head>
 <body>
+
+<div id="popup">
+    <span class="close-btn" onclick="closePopup()">✖</span>
+    <p>
+        Sauerstoff wird von allen o. g. Devices mit Ausnahme der High-Flow-Sauerstofftherapie dem Patienten 
+        als trockenes Gas zur Verfügung gestellt. Bei Patienten bestehen teilweise, vor allem bei hohen 
+        Sauerstoffflüssen, Beschwerden im Bereich der oberen Atemwege (Nasenschleimhaut) im Sinne von 
+        Austrocknung, Entzündung und Blutungen. Bei hoher Sekretlast kann Sauerstoff zu einer Erhöhung der 
+        Viskosität des Sekrets führen. Im Gegensatz zur britischen Leitlinie [16] wurde deshalb in der ersten 
+        Auflage der deutschen Leitlinie die Verwendung von Befeuchtern ab einer Flussrate von > 2 Liter/Minute 
+        trotz fehlender Daten über positive Effekte routinemäßig empfohlen (Quelle AWMF Leitlinie, S. 36).
+    </p>
+</div>
+
     <h1>Langzeit-Sauerstofftherapie Quiz</h1>
     <div id="nickname-container">
         <label for="nickname">Gib deinen Nicknamen ein:</label>
@@ -145,27 +161,169 @@
 
     <div id="egg" onclick="showPopup()">🥚</div>
 
-    <div id="popup">
-        <span class="close-btn" onclick="closePopup()">✖</span>
-        <p>
-            Sauerstoff wird von allen o. g. Devices mit Ausnahme der High-Flow-Sauerstofftherapie dem Patienten 
-            als trockenes Gas zur Verfügung gestellt. Bei Patienten bestehen teilweise, vor allem bei hohen 
-            Sauerstoffflüssen, Beschwerden im Bereich der oberen Atemwege (Nasenschleimhaut) im Sinne von 
-            Austrocknung, Entzündung und Blutungen. Bei hoher Sekretlast kann Sauerstoff zu einer Erhöhung der 
-            Viskosität des Sekrets führen. Im Gegensatz zur britischen Leitlinie [16] wurde deshalb in der ersten 
-            Auflage der deutschen Leitlinie die Verwendung von Befeuchtern ab einer Flussrate von > 2 Liter/Minute 
-            trotz fehlender Daten über positive Effekte routinemäßig empfohlen (Quelle AWMF Leitlinie, S. 36).
-        </p>
-    </div>
-
     <script>
-        function showPopup() {
-            document.getElementById('popup').style.display = 'block';
+        const questions = [
+            {
+                text: "Warum ist es laut den aktuellen Leitlinien nicht erforderlich, Sauerstoff routinemäßig zu befeuchten?",
+                answers: [
+                    "A) Weil es keine signifikanten Verbesserungen der Schleimhautfeuchtigkeit oder -konsistenz gibt.",
+                    "B) Weil die Befeuchtung zu höheren Kosten führt.",
+                    "C) Weil befeuchteter Sauerstoff gefährlich sein kann.",
+                    "D) Weil die Geräte den Sauerstoff bereits ausreichend befeuchten."
+                ],
+                correct: "A"
+            },
+            {
+                text: "In welcher Situation ist die Befeuchtung des Sauerstoffs für Patienten wirklich notwendig?",
+                answers: [
+                    "A) Bei allen Patienten mit Low-Flow-Sauerstofftherapie.",
+                    "B) Bei Patienten, die durch einen Tracheostoma beatmet werden.",
+                    "C) Immer, wenn die Sauerstoffflussrate unter 2 Liter/Minute liegt.",
+                    "D) Bei Patienten ohne Beschwerden der oberen Atemwege."
+                ],
+                correct: "B"
+            },
+            {
+                text: "Welche Probleme können bei einer unzureichenden Befeuchtung des Sauerstoffs auftreten?",
+                answers: [
+                    "A) Reizungen der Nasenschleimhaut, Entzündungen und Blutungen.",
+                    "B) Erhöhte Infektionsgefahr durch Keime im Sauerstoff.",
+                    "C) Erhöhte Gefahr einer Hyperkapnie.",
+                    "D) Keine, es gibt keine nachgewiesenen negativen Effekte."
+                ],
+                correct: "A"
+            },
+            {
+                text: "Welche Maßnahme sollte ergriffen werden, wenn sich Flüssigkeit im Schlauchsystem des Sauerstoffgeräts sammelt?",
+                answers: [
+                    "A) Die Befeuchtungseinheit näher am Patienten positionieren.",
+                    "B) Die Flussrate erhöhen, um die Flüssigkeit zu entfernen.",
+                    "C) Die Befeuchtung komplett abschalten.",
+                    "D) Das Schlauchsystem komplett austauschen."
+                ],
+                correct: "D"
+            },
+            {
+                text: "Welche Applikationsform für Sauerstoff wird am häufigsten verwendet und von den Patienten bevorzugt?",
+                answers: [
+                    "A) Nasenbrille ohne routinemäßige Befeuchtung.",
+                    "B) Gesichtsmaske mit hoher Flussrate.",
+                    "C) Venturi-Maske mit konstantem Fluss.",
+                    "D) Nasenbrille mit kontinuierlicher Befeuchtung."
+                ],
+                correct: "A"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function startQuiz() {
+            const nickname = document.getElementById('nickname').value;
+            if (nickname.trim() === "") {
+                alert("Bitte gib einen Nicknamen ein.");
+                return;
+            }
+            document.getElementById('nickname-container').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            showQuestion();
         }
 
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
+        function startAnonymously() {
+            document.getElementById('nickname-container').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            showQuestion();
         }
-    </script>
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('question-text').textContent = question.text;
+            const answersContainer = document.getElementById('answers');
+            answersContainer.innerHTML = '';
+            question.answers.forEach((answer, index) => {
+                const answerElement = document.createElement('div');
+                answerElement.classList.add('answer');
+                answerElement.textContent = answer;
+                answerElement.onclick = () => selectAnswer(index);
+                answersContainer.appendChild(answerElement);
+            });
+            updateProgressBar();
+            showEgg();
+        }
+
+        function selectAnswer(index) {
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.classList.remove('selected'));
+            answers[index].classList.add('selected');
+        }
+
+        function nextQuestion() {
+            const selectedAnswer = document.querySelector('.answer.selected');
+            if (!selectedAnswer) {
+                alert("Bitte wähle eine Antwort aus.");
+                return;
+            }
+            const answerIndex = Array.from(selectedAnswer.parentNode.children).indexOf(selectedAnswer);
+            if (questions[currentQuestion].answers[answerIndex].startsWith(questions[currentQuestion].correct)) {
+                score++;
+            }
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = ((currentQuestion + 1) / questions.length) * 100 + '%';
+            const progressText = document.getElementById('progress-text');
+            progressText.textContent = `${currentQuestion + 1} von ${questions.length}`;
+        }
+
+        function showResult() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            const starsContainer = document.getElementById('stars');
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < score; i++) {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                star.textContent = '★';
+                starsContainer.appendChild(star);
+            }
+            const feedback = document.getElementById('feedback-message');
+            if (score === 5) {
+                feedback.textContent = "Klasse gemacht! Dein Wissen ist brandaktuell.";
+            } else if (score === 4) {
+                feedback.textContent = "Nicht schlecht, aber ein paar Lücken.";
+            } else {
+                feedback.textContent = "Da geht noch mehr. Du solltest dich weiter informieren.";
+            }
+        }
+
+        function showEgg() {
+            const egg = document.getElementById('egg');
+            if (currentQuestion === 2) { // Index 2 entspricht Frage 3
+                egg.style.display = 'block';
+            } else {
+                egg.style.display = 'none';
+            }
+        }
+
+        function showLink() {
+            window.open("https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs10405-021-00417-x/MediaObjects/10405_2021_417_Fig2_HTML.png?as=webp", "_blank");
+        }
+    
+function showPopup() {
+    document.getElementById('popup').style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+
+</script>
 </body>
 </html>
